@@ -1,0 +1,3 @@
+[workspace]
+
+members = ["simple_rustc_wrapper", "bundled_rustc_wrapper", "analysis_compiler"]
