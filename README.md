@@ -12,11 +12,11 @@ More specifically, there are three "compilers" in this repository:
 
 Both `bundled_rustc_wrapper` and `analysis_compiler` require the nightly
 toolchain and a few other components to be installed. In order to guarantee
-future compatibility, we will use `nightly-2021-08-10` toolchain:
+future compatibility, we will use `nightly` toolchain:
 
 ```bash
-$ rustup install nightly-2021-08-10
-$ rustup component add --toolchain nightly-2021-08-10 rust-src rustc-dev llvm-tools-preview
+$ rustup install nightly
+$ rustup component add --toolchain nightly rust-src rustc-dev llvm-tools-preview
 ```
 
 Everything can be built with the following command:
@@ -40,7 +40,7 @@ The compiler can then be called on any Rust project by setting the
 `RUSTC_WRAPPER` environment variable:
 
 ```bash
-$ RUSTC_WRAPPER=<COMPILER> cargo +nightly-2021-08-10 check
+$ RUSTC_WRAPPER=<COMPILER> cargo +nightly check
 ```
 
 Note that the `analysis_compiler` also requires the `TARGET_CRATE` environment
