@@ -4,12 +4,15 @@ extern crate rustc_ast;
 extern crate rustc_driver;
 extern crate rustc_hir;
 extern crate rustc_interface;
+extern crate rustc_lint;
 extern crate rustc_middle;
 
 use std::{env, iter, process::Command};
 
 use rustc_driver::{Callbacks, Compilation, RunCompiler};
 use rustc_hir::{def_id::DefId, ItemId, ItemKind, Mod};
+use rustc_interface::interface::Config;
+use rustc_lint::Level;
 use rustc_middle::ty::{TyCtxt, Visibility};
 
 fn main() {
@@ -124,6 +127,13 @@ impl InstrumentedCompiler {
 }
 
 impl Callbacks for InstrumentedCompiler {
+    fn config(&mut self, config: &mut Config) {
+        config
+            .opts
+            .lint_opts
+            .push(("warnings".to_string(), Level::Allow));
+    }
+
     fn after_analysis<'tcx>(
         &mut self,
         _compiler: &rustc_interface::interface::Compiler,
