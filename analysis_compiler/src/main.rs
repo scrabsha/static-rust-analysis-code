@@ -16,16 +16,16 @@ use rustc_lint::Level;
 use rustc_middle::ty::{TyCtxt, Visibility};
 
 fn main() {
-    if must_compile_target_crate() {
+    if invoked_on_root_crate() {
         run_instrumented_compiler()
     } else {
         run_standard_compiler()
     }
 }
 
-fn must_compile_target_crate() -> bool {
+fn invoked_on_root_crate() -> bool {
     let current_crate_name = get_current_crate();
-    let target_crate_name = get_target_crate();
+    let target_crate_name = get_root_crate();
 
     current_crate_name == target_crate_name
 }
@@ -34,8 +34,8 @@ fn get_current_crate() -> String {
     env::args().nth(3).unwrap()
 }
 
-fn get_target_crate() -> String {
-    env::var("TARGET_CRATE").unwrap()
+fn get_root_crate() -> String {
+    env::var("ROOT_CRATE").unwrap()
 }
 
 fn run_standard_compiler() {
